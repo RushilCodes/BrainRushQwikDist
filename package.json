@@ -46,6 +46,7 @@
     "@capacitor/core": "^7.4.2",
     "@capacitor/network": "^7.0.1",
     "@capacitor/screen-orientation": "^7.0.1",
-    "@capacitor/toast": "^7.0.1"
+    "@capacitor/toast": "^7.0.1",
+    "@vercel/speed-insights": "^1.2.0"
   }
 }
