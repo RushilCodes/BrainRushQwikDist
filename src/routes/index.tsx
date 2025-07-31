@@ -118,12 +118,3 @@ export default component$(() => {
   );
 });
 
-export const head: DocumentHead = {
-  title: "Welcome to Brain Rush",
-  meta: [
-    {
-      name: "description",
-      content: "Sharpen your mind with fast-paced mental games.",
-    },
-  ],
-};
