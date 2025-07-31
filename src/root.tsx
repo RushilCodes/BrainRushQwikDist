@@ -42,7 +42,7 @@ export default component$(() => {
         />
         <meta property="og:title" content="Brain Rush: Fast Mind Games" />
         <meta
-          property="og:description"
+          name="description"
           content="Sharpen your mind with online focus games—the Schulte table, memory tests, and fast puzzles."
         />
         <link

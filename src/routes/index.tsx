@@ -2,7 +2,6 @@
 import { component$, Resource } from "@builder.io/qwik";
 import {
   routeLoader$,
-  type DocumentHead,
   useNavigate,
 } from "@builder.io/qwik-city";
 

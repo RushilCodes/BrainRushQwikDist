@@ -17,7 +17,7 @@ export default component$(() => {
     document.getElementById("GameName")!.textContent =
       game.charAt(0).toUpperCase() + game.slice(1);
 
-    const url = `https://ubybdwgcbacnuduecaoa.supabase.co/storage/v1/object/public/htmlgames/${game}.html?v=${Date.now()}`;
+    const url = `https://ubybdwgcbacnuduecaoa.supabase.co/storage/v1/object/public/htmlgames/${game}.min.html?v=${Date.now()}`;
 
     try {
       const data = await (await fetch(url)).text();
