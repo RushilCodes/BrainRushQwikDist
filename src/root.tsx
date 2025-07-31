@@ -5,7 +5,9 @@ import { RouterHead } from "./components/router-head/router-head";
 import "./global.css";
 
 import { injectSpeedInsights } from "@vercel/speed-insights";
+import { inject } from "@vercel/analytics"
   injectSpeedInsights();
+  inject()
 
 export default component$(() => {
   /**
