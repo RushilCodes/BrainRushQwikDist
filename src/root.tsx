@@ -15,11 +15,6 @@ export default component$(() => {
   return (
     <QwikCityProvider>
       <head>
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2768888723094918"
-          crossOrigin="anonymous"
-        ></script>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
@@ -30,7 +25,7 @@ export default component$(() => {
           property="og:image"
           content="https://ubybdwgcbacnuduecaoa.supabase.co/storage/v1/object/public/gameassets/Images/favicon.webp"
         />
-        <meta property="og:url" content="https://brainrush.rf.gd/" />
+        <meta property="og:url" content="https://brainrush.fun/" />
         <meta
           name="keywords"
           content="brain rush, brain training game, fast reaction game, schulte table, sudoku, number games, memory games, focus training, online mind games"
