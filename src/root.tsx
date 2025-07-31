@@ -1,32 +1,31 @@
-import { component$, useVisibleTask$, isDev } from '@builder.io/qwik';
-import {
-  QwikCityProvider,
-  RouterOutlet,
-  ServiceWorkerRegister,
-} from '@builder.io/qwik-city';
-import { RouterHead } from './components/router-head/router-head';
-import './global.css';
+import { component$, isDev, useVisibleTask$ } from "@builder.io/qwik";
+import { QwikCityProvider, RouterOutlet } from "@builder.io/qwik-city";
+import { RouterHead } from "./components/router-head/router-head";
 
+import "./global.css";
+
+import { injectSpeedInsights } from "@vercel/speed-insights";
+import { inject } from "@vercel/analytics"
+
+  
 export default component$(() => {
-  // Run tracking scripts in the browser only
+  /**
+   * The root of a QwikCity site always start with the <QwikCityProvider> component,
+   * immediately followed by the document's <head> and <body>.
+   *
+   * Don't remove the `<head>` and `<body>` elements.
+   */
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
-    if (typeof window !== 'undefined' && import.meta.env.PROD) {
-      // Dynamically import to avoid SSR issues
-      import('@vercel/speed-insights')
-        .then(({ injectSpeedInsights }) => injectSpeedInsights())
-        .catch((err) => console.error('Speed Insights failed:', err));
-
-      import('@vercel/analytics')
-        .then(({ inject }) => inject())
-        .catch((err) => console.error('Analytics inject failed:', err));
-    }
+    injectSpeedInsights();
+    inject(); // Optional: only if you're using Vercel Analytics
   });
+
 
   return (
     <QwikCityProvider>
       <head>
-        <meta charSet="utf-8" />
+        <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           property="og:description"
@@ -69,7 +68,6 @@ export default component$(() => {
         class="flex min-h-screen flex-col bg-gray-50 font-sans text-gray-900"
       >
         <RouterOutlet />
-        <ServiceWorkerRegister />
       </body>
     </QwikCityProvider>
   );
