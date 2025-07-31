@@ -11,11 +11,12 @@ export interface Game {
   name: string;
   icon: string;
   description: string;
+  finished: boolean;
 }
 
 export const useGameData = routeLoader$<Game[]>(async () => {
   const url =
-    "https://ubybdwgcbacnuduecaoa.supabase.co/storage/v1/object/public/gameassets/gamedata.json";
+    "https://ubybdwgcbacnuduecaoa.supabase.co/storage/v1/object/public/gameassets/gameData.json";
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error("Failed to fetch game data");
@@ -26,6 +27,7 @@ export const useGameData = routeLoader$<Game[]>(async () => {
 export default component$(() => {
   const gamedata = useGameData();
   const nav = useNavigate();
+  
 
   return (
     <>
@@ -37,7 +39,7 @@ export default component$(() => {
       <link
         rel="preload"
         as="fetch"
-        href="https://ubybdwgcbacnuduecaoa.supabase.co/storage/v1/object/public/gameassets/gamedata.json"
+        href="https://ubybdwgcbacnuduecaoa.supabase.co/storage/v1/object/public/gameassets/gameData.json"
         crossOrigin="anonymous"
       />
 
@@ -45,8 +47,8 @@ export default component$(() => {
         <div class="flex items-center space-x-3">
           <img
             src="https://ubybdwgcbacnuduecaoa.supabase.co/storage/v1/object/public/gameassets/Images/favicon.webp"
-            height="50"
-            width="50"
+            height="60"
+            width="60"
             alt="Brain Rush Logo"
             fetchPriority="high"
             decoding="async"
@@ -81,7 +83,9 @@ export default component$(() => {
           )}
           onResolved={(games: Game[]) => (
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {games.map((game) => (
+              {games.map((game) => {
+                if (game.finished){
+                return (
                 <button
                   key={game.id}
                   class="w-full transform cursor-pointer rounded-lg border border-gray-100 bg-white p-5 pt-10 pb-5 text-left shadow transition-transform hover:scale-105 hover:shadow-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
@@ -101,7 +105,7 @@ export default component$(() => {
                   </h2>
                   <p class="text-sm text-gray-600">{game.description}</p>
                 </button>
-              ))}
+              )}})}
             </div>
           )}
         />
