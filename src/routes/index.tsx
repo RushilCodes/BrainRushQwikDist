@@ -46,7 +46,7 @@ export default component$(() => {
       <header class="sticky top-0 z-10 flex items-center justify-between bg-white px-6 py-4 shadow-md">
         <div class="flex items-center space-x-3">
           <img
-            src="https://ubybdwgcbacnuduecaoa.supabase.co/storage/v1/object/public/gameassets/Images/favicon.webp"
+            src="/favicon.webp"
             height="60"
             width="60"
             alt="Brain Rush Logo"

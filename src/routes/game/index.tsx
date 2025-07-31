@@ -1,4 +1,6 @@
+/* eslint-disable qwik/jsx-img */
 import { component$, useVisibleTask$ } from "@builder.io/qwik";
+
 export default component$(() => {
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async () => {
@@ -43,7 +45,7 @@ export default component$(() => {
         <div class="mx-auto flex w-full max-w-4xl items-center justify-between px-6 py-4">
           <div class="flex items-center space-x-3">
             <img
-              src="https://ubybdwgcbacnuduecaoa.supabase.co/storage/v1/object/public/gameassets/Images/favicon.webp"
+              src="/favicon.webp"
               alt="Brain Rush Logo"
               class="h-10 w-10"
               width="10"
