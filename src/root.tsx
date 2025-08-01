@@ -5,9 +5,8 @@ import { RouterHead } from "./components/router-head/router-head";
 import "./global.css";
 
 import { injectSpeedInsights } from "@vercel/speed-insights";
-import { inject } from "@vercel/analytics"
+import { inject } from "@vercel/analytics";
 
-  
 export default component$(() => {
   /**
    * The root of a QwikCity site always start with the <QwikCityProvider> component,
@@ -21,7 +20,6 @@ export default component$(() => {
     inject(); // Optional: only if you're using Vercel Analytics
   });
 
-
   return (
     <QwikCityProvider>
       <head>
@@ -33,7 +31,7 @@ export default component$(() => {
         />
         <meta
           property="og:image"
-          content="https://ubybdwgcbacnuduecaoa.supabase.co/storage/v1/object/public/gameassets/Images/favicon.webp"
+          content="/favicon-128.webp"
         />
         <meta property="og:url" content="https://brainrush.fun/" />
         <meta

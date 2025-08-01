@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "types": [
-
-    ],
+    "types": [],
     "allowJs": true,
     "target": "ES2017",
     "module": "ES2022",
