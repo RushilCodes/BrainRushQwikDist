@@ -14,6 +14,19 @@ export default component$(() => {
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Brain Rush",
+    "url": "https://brainrush.fun",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://brainrush.fun/game?game={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     injectSpeedInsights();
@@ -23,21 +36,11 @@ export default component$(() => {
   return (
     <QwikCityProvider>
       <head>
-      <script type="application/ld+json">
-        {`
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Brain Rush",
-            "url": "https://brainrush.fun",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "https://brainrush.fun/search?q={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
-          }
-        `}
-      </script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={JSON.stringify(jsonLd)}
+        />
+
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
