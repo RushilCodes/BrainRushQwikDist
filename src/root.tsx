@@ -23,6 +23,21 @@ export default component$(() => {
   return (
     <QwikCityProvider>
       <head>
+      <script type="application/ld+json">
+        {`
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Brain Rush",
+            "url": "https://brainrush.fun",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://brainrush.fun/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        `}
+      </script>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
@@ -31,7 +46,7 @@ export default component$(() => {
         />
         <meta
           property="og:image"
-          content="/favicon-128.webp"
+          content="https://brainrush.fun/favicon-128.webp"
         />
         <meta property="og:url" content="https://brainrush.fun/" />
         <meta
@@ -43,14 +58,10 @@ export default component$(() => {
           name="description"
           content="Sharpen your mind with online focus games—the Schulte table, memory tests, and fast puzzles."
         />
-        <link
-          rel="preconnect"
-          href="https://ubybdwgcbacnuduecaoa.supabase.co"
-        />
         <title>Brain Rush - Train your brain</title>
         <link
           rel="icon"
-          href="https://ubybdwgcbacnuduecaoa.supabase.co/storage/v1/object/public/gameassets/Images/favicon.webp"
+          href="/favicon-64.png"
         />
 
         {!isDev && (
