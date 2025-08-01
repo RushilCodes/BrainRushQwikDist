@@ -1,5 +1,5 @@
 /* eslint-disable qwik/jsx-img */
-import { component$, useVisibleTask$ } from "@builder.io/qwik";
+import { component$, useVisibleTask$, useSignal } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 
 export const useHtmlContent = routeLoader$(async ({ query }) => {
@@ -11,7 +11,6 @@ export const useHtmlContent = routeLoader$(async ({ query }) => {
 
   try {
     const url = `https://1vnkxjbyodanjftq.public.blob.vercel-storage.com/Html/${game}.min.html`;
-    console.log(game)
     const res = await fetch(url);
     if (!res.ok) throw new Error("Failed to fetch");
 
@@ -24,10 +23,33 @@ export const useHtmlContent = routeLoader$(async ({ query }) => {
 
 export default component$(() => {
   const data = useHtmlContent();
+  const playerNameSig = useSignal("");
 
-  // eslint-disable-next-line qwik/no-use-visible-task
+  // ✅ Ask for player name & save to localStorage
   useVisibleTask$(async () => {
-    // Execute any <script> tags in fetched HTML (client-side only)
+    const savedName = localStorage.getItem("brainrush_name");
+
+    if (!savedName) {
+      const Swal = (await import("sweetalert2")).default;
+      const { value: name } = await Swal.fire({
+        title: "Enter your name",
+        input: "text",
+        inputPlaceholder: "Your name here...",
+        allowOutsideClick: false,
+        inputValidator: (value) => {
+          if (!value) return "You must enter a name!";
+        },
+      });
+
+      if (name) {
+        localStorage.setItem("brainrush_name", name);
+        playerNameSig.value = name;
+      }
+    } else {
+      playerNameSig.value = savedName;
+    }
+
+    // ✅ Execute any <script> in fetched HTML
     const temp = document.createElement("div");
     temp.innerHTML = data.value.html;
     temp.querySelectorAll("script").forEach((oldScript) => {
@@ -47,12 +69,12 @@ export default component$(() => {
           <div class="flex items-center space-x-3">
             <img
               src="/favicon-96.webp"
-              srcset="
-                  /favicon-32.webp 1x,
-                  /favicon-64.webp 2x,
-                  /favicon-96.webp 3x,
-                  /favicon-128.webp 4x
-                   "
+              srcSet="
+                /favicon-32.webp 1x,
+                /favicon-64.webp 2x,
+                /favicon-96.webp 3x,
+                /favicon-128.webp 4x
+              "
               alt="Brain Rush Logo"
               class="h-10 w-10"
               loading="eager"
@@ -64,8 +86,7 @@ export default component$(() => {
               class="text-2xl font-bold tracking-tight text-blue-700"
             >
               {data.value.game
-                ? data.value.game.charAt(0).toUpperCase() +
-                  data.value.game.slice(1)
+                ? data.value.game.charAt(0).toUpperCase() + data.value.game.slice(1)
                 : "No Game"}
             </h1>
           </div>
@@ -79,6 +100,13 @@ export default component$(() => {
         id="gamecontainer"
         dangerouslySetInnerHTML={data.value.error || data.value.html}
       />
+
+      {/* ✅ Show name if desired */}
+      {playerNameSig.value && (
+        <div class="text-center mt-2 text-sm text-gray-500">
+          Playing as <strong>{playerNameSig.value}</strong>
+        </div>
+      )}
 
       <footer class="mt-auto pt-4 pb-2 text-center text-sm text-gray-400">
         © 2025 Brain Rush — Keep your mind sharp
