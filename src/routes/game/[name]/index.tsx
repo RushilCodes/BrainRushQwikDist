@@ -84,7 +84,7 @@ export default component$(() => {
 
       action.submit({
         name: name,
-        score,
+        score: score,
         gameId: data.value.game,
         Invert: false,
       });
