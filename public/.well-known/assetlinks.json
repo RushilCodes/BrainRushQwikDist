@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "fun.brainrush.twa",
+      "sha256_cert_fingerprints": [
+        "3C:28:2B:49:D6:B7:DE:22:E7:07:E3:45:75:50:12:04:08:E8:9D:76:8F:50:CC:7E:96:EA:87:00:35:C0:50:67"
+      ]
+    }
+  }
+]

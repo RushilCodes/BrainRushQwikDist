@@ -2,7 +2,7 @@
   "name": "my-qwik-empty-starter",
   "description": "Blank project with routing included",
   "engines": {
-    "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
+    "node": ">=21.0.0"
   },
   "engines-annotation": "Mostly required by sharp which needs a Node-API v9 compatible runtime",
   "private": true,
@@ -24,9 +24,12 @@
     "qwik": "qwik"
   },
   "devDependencies": {
+    "@auth/qwik": "0.5.4",
     "@builder.io/qwik": "^1.15.0",
     "@builder.io/qwik-city": "^1.15.0",
     "@eslint/js": "latest",
+    "@qwik.dev/partytown": "^0.11.1",
+    "@qwikest/icons": "^0.0.13",
     "@tailwindcss/vite": "^4.0.0",
     "@types/node": "20.14.11",
     "eslint": "9.25.1",
@@ -44,6 +47,7 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
+    "@auth/upstash-redis-adapter": "^2.10.0",
     "@capacitor/core": "^7.4.2",
     "@capacitor/network": "^7.0.1",
     "@capacitor/screen-orientation": "^7.0.1",
@@ -56,13 +60,13 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/blob": "^1.1.1",
     "@vercel/speed-insights": "^1.2.0",
+    "@vitejs/plugin-basic-ssl": "^2.1.0",
     "emailjs": "^4.0.3",
     "emailjs-com": "^3.2.0",
     "express": "^5.1.0",
     "fuse.js": "^7.1.0",
     "ioredis": "^5.7.0",
-    "lucide-react": "^0.535.0",
-    "lucide-static": "^0.535.0",
+    "resend": "^4.7.0",
     "sweetalert2": "^11.22.2"
   },
   "trustedDependencies": [

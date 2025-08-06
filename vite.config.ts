@@ -8,6 +8,9 @@ import { qwikCity } from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import pkg from "./package.json";
 import tailwindcss from "@tailwindcss/vite";
+import basicSsl from "@vitejs/plugin-basic-ssl";
+import { partytownVite } from "@qwik.dev/partytown/utils";
+import { join } from "path";
 type PkgDep = Record<string, string>;
 const { dependencies = {}, devDependencies = {} } = pkg as any as {
   dependencies: PkgDep;
@@ -26,11 +29,11 @@ export default defineConfig(({ command, mode }): UserConfig => {
       qwikVite(),
       tsconfigPaths({ root: "." }),
       tailwindcss(),
+      partytownVite({ dest: join(__dirname, "dist", "~partytown") }),
     ],
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {
-      // Put problematic deps that break bundling here, mostly those with binaries.
-      // For example ['better-sqlite3'] if you use that in server functions.
+      include: ["@auth/qwik"],
       exclude: [],
     },
     /**

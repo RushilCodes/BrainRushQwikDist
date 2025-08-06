@@ -1,12 +1,7 @@
 // src/routes/api/streak/+server.ts
 
-import { type RequestHandler } from '@builder.io/qwik-city';
-import { Redis } from '@upstash/redis';
-
-const redis = new Redis({
-  url: 'https://adjusted-perch-6686.upstash.io',
-  token: 'ARoeAAIjcDFlOTIzNDg4MjkyOWE0ZmU2ODFhOTYyYWI4YTVjNzM5Y3AxMA',
-})
+import { type RequestHandler } from "@builder.io/qwik-city";
+import redis from "~/lib/redis";
 
 function isNextDay(lastDate: string, today: string) {
   const last = new Date(lastDate);
@@ -19,7 +14,7 @@ export const onPost: RequestHandler = async ({ request, json }) => {
   const { username } = await request.json();
 
   if (!username) {
-    json(400, { error: 'Username is required.' });
+    json(400, { error: "Username is required." });
     return;
   }
 
@@ -32,7 +27,7 @@ export const onPost: RequestHandler = async ({ request, json }) => {
   }>(key);
 
   if (existing?.lastDate === today) {
-    json(200, { message: 'Already marked today.', streak: existing.streak });
+    json(200, { message: "Already marked today.", streak: existing.streak });
     return;
   }
 
@@ -45,17 +40,17 @@ export const onPost: RequestHandler = async ({ request, json }) => {
   await redis.hmset(key, { streak, lastDate: today });
 
   json(200, {
-    message: existing?.streak ? 'Streak updated!' : 'Streak started!',
+    message: existing?.streak ? "Streak updated!" : "Streak started!",
     streak,
     lastUpdated: today,
   });
 };
 
 export const onGet: RequestHandler = async ({ url, json }) => {
-  const username = url.searchParams.get('username');
+  const username = url.searchParams.get("username");
 
   if (!username) {
-    json(400, { error: 'Username is required.' });
+    json(400, { error: "Username is required." });
     return;
   }
 
@@ -66,12 +61,12 @@ export const onGet: RequestHandler = async ({ url, json }) => {
   }>(key);
 
   if (!data || Object.keys(data).length === 0) {
-    json(200, { message: 'No streak found.', streak: 0 });
+    json(200, { message: "No streak found.", streak: 0 });
     return;
   }
 
   json(200, {
-    message: 'Streak fetched.',
+    message: "Streak fetched.",
     streak: data.streak,
     lastDate: data.lastDate,
   });
