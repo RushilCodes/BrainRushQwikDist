@@ -68,7 +68,7 @@ export default component$(() => {
 
   // eslint-disable-next-line qwik/no-use-visible-task
 useVisibleTask$(() => {
-  requestAnimationFrame(async () => {
+  requestAnimationFrame(() => {
     const gamecodeKey = localStorage.getItem("gamecode");
     if (!gamecodeKey) return;
 
@@ -80,22 +80,30 @@ useVisibleTask$(() => {
     const name = session.value?.user?.name ?? "Anonymous";
     const game = data.value.game;
 
-    try {
-      const res = await fetch("https://brainrush.fun/api/leaderboard", {
+    const script = document.createElement("script");
+    script.type = "text/partytown";
+    script.innerHTML = `
+      fetch("https://brainrush.fun/api/leaderboard", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({ name, score, game, invert }),
-      });
+        body: JSON.stringify({
+          name: ${JSON.stringify(name)},
+          score: ${score},
+          game: ${JSON.stringify(game)},
+          invert: ${invert}
+        })
+      })
+      .then(res => res.json())
+      .then(data => console.log("🏆 Leaderboard submitted:", data))
+      .catch(err => console.error("❌ Leaderboard error:", err));
+    `;
 
-      const data = await res.json();
-      console.log("Leaderboard submitted:", data);
-    } catch (err) {
-      console.error("Leaderboard submission failed:", err);
-    }
+    document.body.appendChild(script);
   });
 });
+
 
 
   return (

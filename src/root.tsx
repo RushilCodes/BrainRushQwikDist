@@ -43,7 +43,7 @@ export default component$(() => {
     <QwikCityProvider>
       <TotalPlaytimePopup />
       <head>
-        <QwikPartytown forward={["adsbygoogle.push"]} />
+        <QwikPartytown forward={['fetch']} />
         <link rel="preconnect" href="https://statistics.brainrush.fun" />
 
         <meta charset="utf-8" />
