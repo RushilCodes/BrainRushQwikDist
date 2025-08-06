@@ -57,9 +57,8 @@ export const { onRequest, useSession, useSignIn, useSignOut } = QwikAuth$(
         name: "Microsoft", // <-- this changes display name internally
       }),
     ],
-    adapter: UpstashRedisAdapter(redis),
-    pages: {
-      signIn: "/login/",
-    },
+    // pages: {
+    //   signIn: "/login/",
+    // },
   }),
 );

@@ -10,7 +10,7 @@ export default component$(() => {
       {/* server-side login with Form action */}
       <Form action={signInSig}>
         <input type="hidden" name="providerId" value="${providerId}" />
-        <input type="hidden" name="options.redirectTo" value="/" />
+        <input type="hidden" name="redirectTo" value="/" />
         <button>Sign In</button>
       </Form>
 
