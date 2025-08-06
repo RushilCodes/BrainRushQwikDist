@@ -11,6 +11,7 @@ import {
   type DocumentHead,
   useNavigate,
   Form,
+  Link,
 } from "@builder.io/qwik-city";
 import Swal from "sweetalert2";
 import { useSession } from "~/routes/plugin@auth";
@@ -313,7 +314,7 @@ export default component$(() => {
                     key={game.id}
                     class="w-full transform cursor-pointer rounded-lg border border-gray-100 bg-white p-5 pt-10 pb-5 text-left shadow transition-transform hover:scale-105 hover:shadow-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
                     aria-label={`Play ${game.name}`}
-                    onClick$={() => nav(`/game/${game.id}`)}
+                    onClick$={() => nav(`/game/${game.id}`,{})}
                   >
                     <img
                       src={game.icon}
