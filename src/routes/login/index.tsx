@@ -41,18 +41,18 @@ export default component$(() => {
   const signInSig = useSignIn();
 
   return (
-    <>
-      <div class="flex min-h-screen items-center justify-center bg-white px-4">
-        <div class="w-full max-w-md space-y-6 rounded-2xl bg-white p-8 shadow-xl">
-          <h1 class="text-center text-3xl font-bold text-gray-800">
-            Login to Brain Rush
-          </h1>
-          <p class="text-center text-gray-500">
-            Choose your preferred login provider
-          </p>
+    <div class="flex min-h-screen items-center justify-center bg-white px-4">
+      <div class="w-full max-w-md space-y-6 rounded-2xl bg-white p-8 shadow-xl">
+        <h1 class="text-center text-3xl font-bold text-gray-800">
+          Login to Brain Rush
+        </h1>
+        <p class="text-center text-gray-500">
+          Choose your preferred login provider
+        </p>
 
-          <div class="space-y-4">
-            {providers.map(({ id, Icon, name, color }) => (
+        <div class="space-y-4">
+          {signInSig ? (
+            providers.map(({ id, Icon, name, color }) => (
               <Form action={signInSig} key={id}>
                 <input type="hidden" name="providerId" value={id} />
                 <input type="hidden" name="options.redirectTo" value="/" />
@@ -64,27 +64,30 @@ export default component$(() => {
                   <span>Continue with {name}</span>
                 </button>
               </Form>
-            ))}
-          </div>
-          <footer class="pt-10 pb-6 text-center text-sm text-gray-500 dark:text-gray-400">
-            © 2025 Brain Rush — Keep your mind sharp
-            <div class="mt-2 flex justify-center gap-6 text-sm">
-              <a
-                href="/privacy"
-                class="hover:underline focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="/Toc"
-                class="hover:underline focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              >
-                Terms & Conditions
-              </a>
-            </div>
-          </footer>
+            ))
+          ) : (
+            <p class="text-center text-red-500">Auth not initialized yet…</p>
+          )}
         </div>
+
+        <footer class="pt-10 pb-6 text-center text-sm text-gray-500 dark:text-gray-400">
+          © 2025 Brain Rush — Keep your mind sharp
+          <div class="mt-2 flex justify-center gap-6 text-sm">
+            <a
+              href="/privacy"
+              class="hover:underline focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="/Toc"
+              class="hover:underline focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            >
+              Terms & Conditions
+            </a>
+          </div>
+        </footer>
       </div>
-    </>
+    </div>
   );
 });
