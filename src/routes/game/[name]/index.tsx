@@ -1,9 +1,5 @@
 /* eslint-disable qwik/jsx-img */
-import {
-  component$,
-  useSignal,
-  useVisibleTask$,
-} from "@builder.io/qwik";
+import { component$, useSignal, useVisibleTask$ } from "@builder.io/qwik";
 import { routeAction$, routeLoader$ } from "@builder.io/qwik-city";
 import Swal from "sweetalert2";
 import { useSession } from "~/routes/plugin@auth";
@@ -72,23 +68,25 @@ export default component$(() => {
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
-      const gamecode = localStorage.getItem("gamescore");
+    const gamecode = localStorage.getItem(
+      localStorage.getItem("gamecode") as string,
+    );
 
-      if (!gamecode) return;
+    if (!gamecode) return;
 
-      const scoreRaw = localStorage.getItem(gamecode);
-      const score = scoreRaw !== null ? parseInt(scoreRaw) : 0;
+    const scoreRaw = localStorage.getItem(gamecode);
+    const score = scoreRaw !== null ? parseInt(scoreRaw) : 0;
 
-      action.submit({
-        name: name,
-        score: score,
-        gameId: data.value.game,
-        Invert:
-          localStorage.getItem("type") != null
-            ? localStorage.getItem("type")
-            : false,
-      });
-    })
+    action.submit({
+      name: name,
+      score: score,
+      gameId: data.value.game,
+      Invert:
+        localStorage.getItem("type") != null
+          ? localStorage.getItem("type")
+          : false,
+    });
+  });
 
   return (
     <>
