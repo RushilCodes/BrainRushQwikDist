@@ -68,22 +68,22 @@ export default component$(() => {
   });
 
   // eslint-disable-next-line qwik/no-use-visible-task
-useVisibleTask$(() => {
-  requestAnimationFrame(() => {
-    const gamecodeKey = localStorage.getItem("gamecode");
-    if (!gamecodeKey) return;
+  useVisibleTask$(() => {
+    requestAnimationFrame(() => {
+      const gamecodeKey = localStorage.getItem("gamecode");
+      if (!gamecodeKey) return;
 
-    const scoreRaw = localStorage.getItem(gamecodeKey);
-    if (!scoreRaw) return;
+      const scoreRaw = localStorage.getItem(gamecodeKey);
+      if (!scoreRaw) return;
 
-    const score = parseInt(scoreRaw);
-    const invert = localStorage.getItem("type") === "true";
-    const name = session.value?.user?.name ?? "Anonymous";
-    const game = data.value.game;
+      const score = parseInt(scoreRaw);
+      const invert = localStorage.getItem("type") === "true";
+      const name = session.value?.user?.name ?? "Anonymous";
+      const game = data.value.game;
 
-    const script = document.createElement("script");
-    script.type = "text/partytown";
-    script.innerHTML = `
+      const script = document.createElement("script");
+      script.type = "text/partytown";
+      script.innerHTML = `
       fetch("https://brainrush.fun/api/leaderboard", {
         method: "POST",
         headers: {
@@ -101,11 +101,9 @@ useVisibleTask$(() => {
       .catch(err => console.error("❌ Leaderboard error:", err));
     `;
 
-    document.body.appendChild(script);
+      document.body.appendChild(script);
+    });
   });
-});
-
-
 
   return (
     <>
