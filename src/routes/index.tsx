@@ -9,7 +9,6 @@ import {
 import {
   routeLoader$,
   type DocumentHead,
-  useNavigate,
   Form,
   Link,
 } from "@builder.io/qwik-city";
@@ -113,7 +112,6 @@ export const useGameData = routeLoader$<Game[]>(async () => {
 export default component$(() => {
   const gamesToShow = useSignal(8);
   const searchQuery = useSignal("");
-  const nav = useNavigate();
   const gameData = useGameData();
   const session = useSession();
   const signOutSig = useSignOut();
@@ -310,11 +308,12 @@ export default component$(() => {
             return (
               <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {filtered.slice(0, gamesToShow.value).map((game) => (
-                  <button
+                  <Link
+                    prefetch={true}
                     key={game.id}
-                    class="w-full transform cursor-pointer rounded-lg border border-gray-100 bg-white p-5 pt-10 pb-5 text-left shadow transition-transform hover:scale-105 hover:shadow-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                    href={`/game/${game.id}`}
+                    class="block w-full transform cursor-pointer rounded-lg border border-gray-100 bg-white p-5 pt-10 pb-5 text-left shadow transition-transform hover:scale-105 hover:shadow-xl focus:ring-2 focus:ring-blue-400 focus:outline-none"
                     aria-label={`Play ${game.name}`}
-                    onClick$={() => nav(`/game/${game.id}`,{})}
                   >
                     <img
                       src={game.icon}
@@ -327,7 +326,7 @@ export default component$(() => {
                       {game.name}
                     </h2>
                     <p class="text-sm text-gray-600">{game.description}</p>
-                  </button>
+                  </Link>
                 ))}
                 <div id="lazy-sentinel" class="h-1 w-full"></div>
               </div>
