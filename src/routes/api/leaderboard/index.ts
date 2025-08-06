@@ -69,7 +69,7 @@ export const onGet: RequestHandler = async ({ query, json }) => {
     const leaderboard: { name: string; score: number }[] = [];
 
     for (let i = 0; i < raw.length; i += 2) {
-      const name:any = raw[i];
+      const name: any = raw[i];
       const score = Number(raw[i + 1]);
       leaderboard.push({
         name,

@@ -1,8 +1,6 @@
 /* eslint-disable qwik/jsx-img */
 import {
-  $,
   component$,
-  useOnWindow,
   useSignal,
   useVisibleTask$,
 } from "@builder.io/qwik";
@@ -72,9 +70,8 @@ export default component$(() => {
     });
   });
 
-  useOnWindow(
-    "load",
-    $(() => {
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
       const gamecode = localStorage.getItem("gamescore");
 
       if (!gamecode) return;
@@ -86,10 +83,12 @@ export default component$(() => {
         name: name,
         score: score,
         gameId: data.value.game,
-        Invert: false,
+        Invert:
+          localStorage.getItem("type") != null
+            ? localStorage.getItem("type")
+            : false,
       });
-    }),
-  );
+    })
 
   return (
     <>
