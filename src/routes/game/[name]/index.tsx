@@ -68,7 +68,7 @@ export default component$(() => {
 
   // eslint-disable-next-line qwik/no-use-visible-task
 useVisibleTask$(() => {
-  requestAnimationFrame(() => {
+  requestAnimationFrame(async () => {
     const gamecodeKey = localStorage.getItem("gamecode");
     if (!gamecodeKey) return;
 
@@ -77,13 +77,23 @@ useVisibleTask$(() => {
 
     const score = parseInt(scoreRaw);
     const invert = localStorage.getItem("type") === "true";
+    const name = session.value?.user?.name ?? "Anonymous";
+    const game = data.value.game;
 
-    action.submit({
-      name: name ?? "Anonymous",
-      score,
-      game: data.value.game,
-      invert,
-    });
+    try {
+      const res = await fetch("https://brainrush.fun/api/leaderboard", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, score, game, invert }),
+      });
+
+      const data = await res.json();
+      console.log("Leaderboard submitted:", data);
+    } catch (err) {
+      console.error("Leaderboard submission failed:", err);
+    }
   });
 });
 
