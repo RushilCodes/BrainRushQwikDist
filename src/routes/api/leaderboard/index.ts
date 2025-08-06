@@ -51,44 +51,31 @@ export const onGet: RequestHandler = async ({ query, json }) => {
       return;
     }
 
-    const normalizedGame = normalize(game);
+    const normalizedGame = game.trim().toLowerCase();
     const key = `lb:${normalizedGame}`;
     const invertKey = `lb:invert:${normalizedGame}`;
-    const invert = (await redis.get(invertKey)) === "true";
+    const invertRaw = await redis.get(invertKey);
+    const invert = invertRaw === "true";
 
-    const user = query.get("user");
     const count = Math.max(1, parseInt(query.get("count") || "10"));
 
-    if (user) {
-      const score = await redis.zscore(key, user);
-      if (score === null) {
-        json(404, { error: "User not found in leaderboard" });
-        return;
-      }
+    // DEBUG: show what we're fetching
+    const raw = await redis.zrange(key, 0, count - 1, {
+      rev: !invert, // false -> rev=true (descending order)
+      withScores: true,
+    });
 
-      json(200, {
-        user,
-        score: Math.abs(Number(score)),
+    // Parse alternating array: [member1, score1, member2, score2, ...]
+    const leaderboard: { name: string; score: number }[] = [];
+
+    for (let i = 0; i < raw.length; i += 2) {
+      const name:any = raw[i];
+      const score = Number(raw[i + 1]);
+      leaderboard.push({
+        name,
+        score: Math.abs(score),
       });
-      return;
     }
-
-    // Leaderboard: descending (highest scores) unless inverted
-const rawEntries = await redis.zrange(key, 0, count - 1, {
-  rev: !invert,
-  withScores: true,
-});
-
-const leaderboard = [];
-for (let i = 0; i < rawEntries.length; i += 2) {
-  const name = rawEntries[i];
-  const score = Number(rawEntries[i + 1]);
-  leaderboard.push({
-    name,
-    score: Math.abs(score),
-  });
-}
-
 
     json(200, { leaderboard });
   } catch (err) {
@@ -98,3 +85,4 @@ for (let i = 0; i < rawEntries.length; i += 2) {
     });
   }
 };
+
