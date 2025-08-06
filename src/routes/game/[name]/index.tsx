@@ -67,26 +67,26 @@ export default component$(() => {
   });
 
   // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
-    const gamecode = localStorage.getItem(
-      localStorage.getItem("gamecode") as string,
-    );
+useVisibleTask$(() => {
+  requestAnimationFrame(() => {
+    const gamecodeKey = localStorage.getItem("gamecode");
+    if (!gamecodeKey) return;
 
-    if (!gamecode) return;
+    const scoreRaw = localStorage.getItem(gamecodeKey);
+    if (!scoreRaw) return;
 
-    const scoreRaw = localStorage.getItem(gamecode);
-    const score = scoreRaw !== null ? parseInt(scoreRaw) : 0;
+    const score = parseInt(scoreRaw);
+    const invert = localStorage.getItem("type") === "true";
 
     action.submit({
-      name: name,
-      score: score,
-      gameId: data.value.game,
-      Invert:
-        localStorage.getItem("type") != null
-          ? localStorage.getItem("type")
-          : false,
+      name: name ?? "Anonymous",
+      score,
+      game: data.value.game,
+      invert,
     });
   });
+});
+
 
   return (
     <>
