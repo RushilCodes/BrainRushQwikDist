@@ -8,7 +8,6 @@ import { qwikCity } from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import pkg from "./package.json";
 import tailwindcss from "@tailwindcss/vite";
-import basicSsl from "@vitejs/plugin-basic-ssl";
 import { partytownVite } from "@qwik.dev/partytown/utils";
 import { join } from "path";
 type PkgDep = Record<string, string>;
@@ -33,8 +32,10 @@ export default defineConfig(({ command, mode }): UserConfig => {
     ],
     // This tells Vite which dependencies to pre-build in dev mode.
     optimizeDeps: {
-      include: ["@auth/qwik"],
+      // Put problematic deps that break bundling here, mostly those with binaries.
+      // For example ['better-sqlite3'] if you use that in server functions.
       exclude: [],
+      include: ["@auth/qwik"],
     },
     /**
      * This is an advanced setting. It improves the bundling of your server code. To use it, make sure you understand when your consumed packages are dependencies or dev dependencies. (otherwise things will break in production)

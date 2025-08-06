@@ -5,6 +5,7 @@ import { RouterHead } from "./components/router-head/router-head";
 
 import "./global.css";
 
+import { injectSpeedInsights } from "@vercel/speed-insights";
 import { inject } from "@vercel/analytics";
 import { TotalPlaytimePopup } from "./components/PlayTimeTracker/PlayTimeTracker";
 import { QwikPartytown } from "./components/partytown/partytown";
@@ -17,7 +18,6 @@ export const LazyAdsenseScript = component$(() => {
       "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2768888723094918",
     );
     script.setAttribute("crossorigin", "anonymous");
-    script.setAttribute("type", "text/partytown");
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
@@ -35,6 +35,7 @@ export default component$(() => {
    */
 
   useVisibleTask$(() => {
+    injectSpeedInsights();
     inject(); // Optional: only if you're using Vercel Analytics
   });
 
@@ -42,7 +43,7 @@ export default component$(() => {
     <QwikCityProvider>
       <TotalPlaytimePopup />
       <head>
-        <QwikPartytown forward={["adsbygoogle.push"]} />
+        <QwikPartytown forward={["fetch"]} />
         <link rel="preconnect" href="https://statistics.brainrush.fun" />
 
         <meta charset="utf-8" />

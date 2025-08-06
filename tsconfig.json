@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "types": [],
     "allowJs": true,
     "target": "ES2017",
     "module": "ES2022",
@@ -17,6 +16,7 @@
     "isolatedModules": true,
     "outDir": "tmp",
     "noEmit": true,
+    "types": [], // ← clears implicit global types
     "paths": {
       "~/*": ["./src/*"]
     },

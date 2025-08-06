@@ -253,7 +253,7 @@ export default component$(() => {
                 </>
               ) : (
                 <a
-                  href="/auth/signin"
+                  href="/login"
                   class="block px-4 py-2 text-gray-700 transition hover:bg-gray-100"
                 >
                   Sign in

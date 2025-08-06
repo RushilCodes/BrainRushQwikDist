@@ -2,7 +2,7 @@
   "name": "my-qwik-empty-starter",
   "description": "Blank project with routing included",
   "engines": {
-    "node": ">=21.0.0"
+    "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
   },
   "engines-annotation": "Mostly required by sharp which needs a Node-API v9 compatible runtime",
   "private": true,
@@ -13,7 +13,7 @@
     "build.preview": "vite build --ssr src/entry.preview.tsx",
     "build.server": "vite build -c adapters/vercel-edge/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
-    "deploy": "vercel deploy --prod",
+    "deploy": "vercel deploy",
     "dev": "vite --mode ssr",
     "dev.debug": "node --inspect-brk ./node_modules/vite/bin/vite.js --mode ssr --force",
     "fmt": "prettier --write .",
@@ -42,37 +42,14 @@
     "typescript-eslint": "8.26.1",
     "typescript-plugin-css-modules": "latest",
     "undici": "*",
-    "vercel": "^44.6.6",
+    "vercel": "^44.7.3",
     "vite": "5.3.5",
     "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
     "@auth/upstash-redis-adapter": "^2.10.0",
-    "@capacitor/core": "^7.4.2",
-    "@capacitor/network": "^7.0.1",
-    "@capacitor/screen-orientation": "^7.0.1",
-    "@capacitor/toast": "^7.0.1",
-    "@emailjs/browser": "^4.4.1",
-    "@libsql/client": "^0.15.10",
     "@types/minimatch": "^6.0.0",
-    "@upstash/redis": "^1.35.3",
-    "@upstash/search": "^0.1.5",
     "@vercel/analytics": "^1.5.0",
-    "@vercel/blob": "^1.1.1",
-    "@vercel/speed-insights": "^1.2.0",
-    "@vitejs/plugin-basic-ssl": "^2.1.0",
-    "emailjs": "^4.0.3",
-    "emailjs-com": "^3.2.0",
-    "express": "^5.1.0",
-    "fuse.js": "^7.1.0",
-    "ioredis": "^5.7.0",
-    "resend": "^4.7.0",
     "sweetalert2": "^11.22.2"
-  },
-  "trustedDependencies": [
-    "@parcel/watcher",
-    "@tailwindcss/oxide",
-    "@vercel/speed-insights",
-    "vercel"
-  ]
+  }
 }

@@ -1,5 +1,4 @@
 import { component$ } from "@builder.io/qwik";
-import { Form } from "@builder.io/qwik-city";
 import { useSignIn } from "~/routes/plugin@auth";
 
 import {
@@ -13,9 +12,24 @@ import {
 } from "@qwikest/icons/simpleicons";
 
 const providers = [
-  { id: "google", Icon: SiGoogle, name: "Google", color: "text-red-500" },
-  { id: "apple", Icon: SiApple, name: "Apple", color: "text-black" },
-  { id: "discord", Icon: SiDiscord, name: "Discord", color: "text-indigo-500" },
+  {
+    id: "google",
+    Icon: SiGoogle,
+    name: "Google",
+    color: "text-red-500",
+  },
+  {
+    id: "apple",
+    Icon: SiApple,
+    name: "Apple",
+    color: "text-black",
+  },
+  {
+    id: "discord",
+    Icon: SiDiscord,
+    name: "Discord",
+    color: "text-indigo-500",
+  },
   {
     id: "facebook",
     Icon: SiFacebook,
@@ -28,7 +42,12 @@ const providers = [
     name: "Instagram",
     color: "text-pink-500",
   },
-  { id: "reddit", Icon: SiReddit, name: "Reddit", color: "text-orange-500" },
+  {
+    id: "reddit",
+    Icon: SiReddit,
+    name: "Reddit",
+    color: "text-orange-500",
+  },
   {
     id: "microsoft",
     Icon: SiMicrosoft,
@@ -53,17 +72,22 @@ export default component$(() => {
 
           <div class="space-y-4">
             {providers.map(({ id, Icon, name, color }) => (
-              <Form action={signInSig} key={id}>
-                <input type="hidden" name="providerId" value={id} />
-                <input type="hidden" name="options.redirectTo" value="/" />
-                <button
-                  type="submit"
-                  class={`flex w-full transform items-center justify-center gap-3 rounded-xl border border-gray-200 px-4 py-2 font-medium shadow-sm transition duration-200 ease-in-out hover:-translate-y-1 hover:shadow-md active:scale-95 ${color}`}
-                >
-                  <Icon class="h-5 w-5" />
-                  <span>Continue with {name}</span>
-                </button>
-              </Form>
+              <button
+                key={id}
+                type="submit"
+                class={`flex w-full transform items-center justify-center gap-3 rounded-xl border border-gray-200 px-4 py-2 font-medium shadow-sm transition duration-200 ease-in-out hover:-translate-y-1 hover:shadow-md active:scale-95 ${color}`}
+                onClick$={() => {
+                  signInSig.submit({
+                    providerId: id,
+                    options: {
+                      redirectTo: `https://brainrush.fun/auth/callback/${id}`,
+                    },
+                  });
+                }}
+              >
+                <Icon class="h-5 w-5" />
+                <span>Continue with {name}</span>
+              </button>
             ))}
           </div>
           <footer class="pt-10 pb-6 text-center text-sm text-gray-500 dark:text-gray-400">
