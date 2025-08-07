@@ -38,7 +38,7 @@ export default component$(() => {
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
-    gamecode.value = localStorage.getItem("gamecode") ?? "";
+    gamecode.value = localStorage.getItem('gamecode') || '';
   });
 
   // eslint-disable-next-line qwik/no-use-visible-task
