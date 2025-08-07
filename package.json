@@ -50,6 +50,8 @@
     "@vercel/analytics": "^1.5.0"
   },
   "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "satori": "^0.16.2",
     "sweetalert2": "^11.22.2"
   }
 }
