@@ -80,7 +80,7 @@ export default component$(() => {
                   signInSig.submit({
                     providerId: id,
                     options: {
-                      redirectTo: `https://brainrush.fun/auth/callback/${id}`,
+                      redirectTo: `/`,
                     },
                   });
                 }}

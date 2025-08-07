@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "build": "qwik build",
-    "build.client": "vite build",
+    "build.client": "vite build --mode production",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
     "build.server": "vite build -c adapters/vercel-edge/vite.config.ts",
     "build.types": "tsc --incremental --noEmit",
@@ -44,12 +44,12 @@
     "undici": "*",
     "vercel": "^44.7.3",
     "vite": "5.3.5",
-    "vite-tsconfig-paths": "^4.2.1"
-  },
-  "dependencies": {
+    "vite-tsconfig-paths": "^4.2.1",
     "@auth/upstash-redis-adapter": "^2.10.0",
     "@types/minimatch": "^6.0.0",
-    "@vercel/analytics": "^1.5.0",
+    "@vercel/analytics": "^1.5.0"
+  },
+  "dependencies": {
     "sweetalert2": "^11.22.2"
   }
 }

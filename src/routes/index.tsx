@@ -70,7 +70,6 @@ export const NameCollector = component$(() => {
 
   useVisibleTask$(() => {
     const storedName = localStorage.getItem("username");
-    console.log(parseInt(localStorage.getItem("totalPlaytime") as string));
     if (storedName != "undefined" && storedName) {
       mail(
         session.value?.user?.name as string,
