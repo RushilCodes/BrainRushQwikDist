@@ -1,20 +1,44 @@
-import { type RequestHandler } from "@builder.io/qwik-city";
-import satori from "satori";
-import { Resvg } from "@resvg/resvg-js";
+// import type { VercelRequest, VercelResponse } from '@vercel/node'
+// import { type RequestHandler } from "@builder.io/qwik-city";
+// import satori from "satori";
+// import { Resvg } from "@resvg/resvg-js";
 
-export const config = { runtime: "nodejs" };
+// export const config = { runtime: "nodejs" };
 
-// const interRegularFontPath = path.resolve("public/fonts/Inter-Regular.ttf"); // Adjust if needed
-// const orbitronBoldFontPath = path.resolve("public/fonts/Orbitron-Bold.ttf"); // Adjust if needed
+// // const interRegularFontPath = path.resolve("public/fonts/Inter-Regular.ttf"); // Adjust if needed
+// // const orbitronBoldFontPath = path.resolve("public/fonts/Orbitron-Bold.ttf"); // Adjust if needed
+// export default async function handler(req: VercelRequest, res: VercelResponse) {
 
-export const onGet: RequestHandler = async ({ query, send }) => {
-  const username = query.get("username") ?? "Player";
-  const score = query.get("score") ?? "0";
-  const game = query.get("game") ?? "Game";
+// export const onGet: RequestHandler = async ({ query, send }) => {
+//   const username = query.get("username") ?? "Player";
+//   const score = query.get("score") ?? "0";
+//   const game = query.get("game") ?? "Game";
+//   const interRegularFontData = await fetch("https://brainrush.fun/fonts/Inter-Regular.ttf").then(res => res.arrayBuffer())
+//   const orbitronBoldFontData = await fetch("https://brainrush.fun/fonts/Orbitron-Bold.ttf").then(res => res.arrayBuffer())
+
+
+
+// const png = new Resvg(svg).render().asPng();
+
+//   // Set content-type manually
+//   send(200, png);
+// };
+
+
+
+// File: /api/share/achievement.png.ts
+
+import type { VercelRequest, VercelResponse } from '@vercel/node'
+import satori from 'satori'
+import { Resvg } from '@resvg/resvg-js'
+
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  const { username = "Player", score = "0", game = "Game" } = req.query
+
   const interRegularFontData = await fetch("https://brainrush.fun/fonts/Inter-Regular.ttf").then(res => res.arrayBuffer())
   const orbitronBoldFontData = await fetch("https://brainrush.fun/fonts/Orbitron-Bold.ttf").then(res => res.arrayBuffer())
 
-const svg = await satori(
+  const svg = await satori(
   {
     type: "div",
     props: {
@@ -128,9 +152,7 @@ const svg = await satori(
     ],
   }
 );
-
-const png = new Resvg(svg).render().asPng();
-
-  // Set content-type manually
-  send(200, png);
-};
+  const png = new Resvg(svg).render().asPng()
+  res.setHeader("Content-Type", "image/png")
+  res.send(Buffer.from(png))
+}
