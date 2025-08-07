@@ -190,7 +190,7 @@ useVisibleTask$(() => {
             <rect x="17" y="16" width="3" height="5" />
             <path d="M11.5 1l1.18 2.39 2.64.38-1.91 1.86.45 2.62-2.36-1.24-2.36 1.24.45-2.62-1.91-1.86 2.64-.38L11.5 1z" />
           </svg>
-          Leaderboard
+          Leaderboard (BETA)
         </button>
       </div>
 
