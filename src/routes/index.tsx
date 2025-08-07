@@ -117,7 +117,7 @@ export default component$(() => {
   const showMenu = useSignal(false);
 
   useVisibleTask$(() => {
-    localStorage.setItem("gamecode","")
+    localStorage.setItem("gamecode", "");
     const userData: User | undefined = session.value?.user;
     if (
       session.value?.user?.name != "" &&

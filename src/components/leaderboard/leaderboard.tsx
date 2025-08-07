@@ -29,11 +29,11 @@ export const LeaderboardPanel = component$(
       const game = track(() => useGame.value);
 
       const count = 10;
-        const url = `https://brainrush.fun/api/leaderboard?game=${game}&count=${count}`;
-        console.log(url)
-        const res = await fetch(url);
-        leaderboardData.value = await res.json()
-    });    
+      const url = `https://brainrush.fun/api/leaderboard?game=${game}&count=${count}`;
+      console.log(url);
+      const res = await fetch(url);
+      leaderboardData.value = await res.json();
+    });
 
     const startX = useSignal(0);
     const currentX = useSignal(0);
@@ -101,22 +101,19 @@ export const LeaderboardPanel = component$(
           {/* Content */}
           <div class="p-6">
             <h2 class="mb-4 text-xl font-bold">Leaderboard</h2>
-            {
-                 leaderboardData.value.leaderboard.length > 0 ? (
-                  leaderboardData.value.leaderboard.map((entry) => (
-                    <div key={entry.name} class="border-b p-2">
-                      <div class="font-semibold">{entry.name}</div>
-                      <div class="text-gray-500">Score: {entry.score}</div>
-                    </div>
-                  ))
-                ) : (
-                  <div>No entries found.</div>
-                )
-            }
+            {leaderboardData.value.leaderboard.length > 0 ? (
+              leaderboardData.value.leaderboard.map((entry) => (
+                <div key={entry.name} class="border-b p-2">
+                  <div class="font-semibold">{entry.name}</div>
+                  <div class="text-gray-500">Score: {entry.score}</div>
+                </div>
+              ))
+            ) : (
+              <div>No entries found.</div>
+            )}
           </div>
         </div>
       </>
     );
   },
 );
-
