@@ -1,4 +1,6 @@
 /* eslint-disable qwik/jsx-img */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Session } from "@auth/qwik";
 import {
   component$,
   isBrowser,
@@ -46,40 +48,55 @@ export default component$(() => {
     });
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const useLeaderboard = component$(() => {
+  const SubmitLeaderboard = component$(({ session }: any) => {
     // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(() => {
       if (!isBrowser) return;
 
-      const gamecodeKey = localStorage.getItem("gamecode");
-      if (!gamecodeKey) return;
+      // Listen for game completion
+      const listener = () => {
+        const gamecodeKey = localStorage.getItem("gamecode");
+        if (!gamecodeKey) return;
 
-      const scoreRaw = localStorage.getItem(gamecodeKey);
-      if (!scoreRaw) return;
+        const scoreRaw = localStorage.getItem(gamecodeKey);
+        if (!scoreRaw) return;
 
-      const score = parseInt(scoreRaw);
-      const invert = localStorage.getItem("type") === "true";
-      const name = session.value?.user?.name ?? "Anonymous";
+        const score = parseInt(scoreRaw);
+        const invert = localStorage.getItem("type") === "true";
+        const name = session.value?.user?.name ?? "Anonymous";
 
-      fetch("/api/leaderboard", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          score,
-          game: gamecodeKey,
-          invert,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log("🏆 Leaderboard submitted:", data))
-        .catch((err) => console.error("❌ Leaderboard error:", err));
+        fetch("/api/leaderboard", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            score,
+            game: gamecodeKey,
+            invert,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log("🏆 Leaderboard submitted:", data))
+          .catch((err) => console.error("❌ Leaderboard error:", err));
+      };
+
+      // Watch for `gameCompleted` = "true" in localStorage
+      const interval = setInterval(() => {
+        const done = localStorage.getItem("gameCompleted");
+        if (done === "true") {
+          localStorage.removeItem("gameCompleted");
+          listener();
+        }
+      }, 1000);
+
+      return () => clearInterval(interval);
     });
+
     return null;
   });
+
   return (
     <>
       <header class="sticky top-0 z-10 w-full bg-[#f7f6f6] shadow-md">
@@ -180,7 +197,7 @@ export default component$(() => {
         dangerouslySetInnerHTML={data.value.error || data.value.html}
         class="min-h-100vh flex justify-center pt-10 align-top"
       />
-      <useLeaderboard />
+      <SubmitLeaderboard session={session} />
       <footer class="mt-auto pt-10 pb-6 text-center text-sm text-gray-500 dark:text-gray-400">
         © 2025 Brain Rush — Keep your mind sharp
         <div class="mt-2 flex justify-center gap-6 text-sm">
