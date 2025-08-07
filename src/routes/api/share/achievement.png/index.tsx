@@ -2,6 +2,10 @@ import { type RequestHandler } from "@builder.io/qwik-city";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 
+export const config = {
+  runtime: 'nodejs', // 👈 Force this to use Node.js (Serverless Function), NOT Edge
+};
+
 // const interRegularFontPath = path.resolve("public/fonts/Inter-Regular.ttf"); // Adjust if needed
 // const orbitronBoldFontPath = path.resolve("public/fonts/Orbitron-Bold.ttf"); // Adjust if needed
 
