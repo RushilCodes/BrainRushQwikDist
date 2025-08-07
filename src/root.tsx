@@ -123,14 +123,6 @@ export default component$(() => {
           data-website-id="9e4887af-5051-4847-8748-f5019f789f05"
         />
         <title>Brain Rush - Free Brain Games & Weekly Challenges</title>
-        <script
-          src="https://cmp.gatekeeperconsent.com/min.js"
-          data-cfasync="false"
-        ></script>
-        <script
-          src="https://the.gatekeeperconsent.com/cmp.min.js"
-          data-cfasync="false"
-        ></script>
         <RouterHead />
       </head>
 
@@ -140,14 +132,6 @@ export default component$(() => {
       >
         <RouterOutlet />
         <LazyAdsenseScript />
-
-        {/* <script async src="//www.ezojs.com/ezoic/sa.min.js"></script> */}
-        <script
-          dangerouslySetInnerHTML="
-          window.ezstandalone = window.ezstandalone || {};
-          ezstandalone.cmd = ezstandalone.cmd || [];
-            "
-        />
       </body>
     </QwikCityProvider>
   );
