@@ -37,9 +37,21 @@ export default component$(() => {
   const gamecode = useSignal("");
 
   // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() => {
+useVisibleTask$(() => {
+  const updateGamecode = () => {
     gamecode.value = localStorage.getItem('gamecode') || '';
-  });
+  };
+
+  // Run once on load
+  updateGamecode();
+
+  // Listen for custom event
+  addEventListener('gamecodechange', updateGamecode);
+
+  // Cleanup
+  return () => removeEventListener('gamecodechange', updateGamecode);
+});
+
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async () => {
