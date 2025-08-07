@@ -11,18 +11,19 @@ interface Leaderboard {
 
 interface LeaderboardProps {
   leaderboard: Signal<boolean>;
-  game: Signal<string>;
+  useGame: Signal<string>;
 }
 
 
 
-export const LeaderboardPanel = component$(({ leaderboard, game }: LeaderboardProps) => {
+export const LeaderboardPanel = component$(({ leaderboard, useGame }: LeaderboardProps) => {
 
   const leaderboardData = useSignal<Leaderboard>({ leaderboard: [] });
   const loading = useSignal(true);
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async () => {
+    const game = useGame.value
     const count = 10;
     console.log(game)
     if (!game) return;
