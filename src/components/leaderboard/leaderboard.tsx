@@ -22,8 +22,8 @@ export const LeaderboardPanel = component$(({ leaderboard, useGame }: Leaderboar
   const loading = useSignal(true);
 
   // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(async () => {
-    const game = useGame.value
+  useVisibleTask$(async ({track}) => {
+    const game = track(() => useGame.value)
     const count = 10;
     console.log(game)
     if (!game) return;
