@@ -27,9 +27,10 @@ export const LeaderboardPanel = component$(
 
     // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(async ({ track }) => {
-      const game = track(() => useGame);
+      const game = track(() => useGame.value);
+      console.log("🎮 gamecode updated to:", game);
+
       const count = 10;
-      console.log(game);
       if (!game) return;
 
       try {
