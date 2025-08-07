@@ -34,10 +34,12 @@ export default component$(() => {
   const data = useHtmlContent();
   const leaderboard = useSignal(false);
   const session = useSession();
-  const gamecode = useSignal("")
+  const gamecode = useSignal("");
 
   // eslint-disable-next-line qwik/no-use-visible-task
-  useVisibleTask$(() =>{ gamecode.value = localStorage.getItem("gamecode") ?? ""})
+  useVisibleTask$(() => {
+    gamecode.value = localStorage.getItem("gamecode") ?? "";
+  });
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async () => {
@@ -159,7 +161,7 @@ export default component$(() => {
         {/* Leaderboard Button */}
         <button
           class="flex items-center gap-1 rounded-bl-3xl border border-gray-400 px-3 py-2 text-sm font-medium text-gray-600 shadow-md transition hover:bg-blue-50 hover:text-blue-700"
-          onClick$={() => leaderboard.value = !leaderboard.value}
+          onClick$={() => (leaderboard.value = !leaderboard.value)}
           aria-label="Leaderboard"
         >
           <svg
@@ -180,7 +182,7 @@ export default component$(() => {
         </button>
       </div>
 
-      <LeaderboardPanel leaderboard={leaderboard} useGame={gamecode}/>
+      <LeaderboardPanel leaderboard={leaderboard} useGame={gamecode} />
 
       <div
         id="gamecontainer"
