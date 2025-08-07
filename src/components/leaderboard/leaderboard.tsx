@@ -35,6 +35,7 @@ export const LeaderboardPanel = component$(
 
       try {
         const url = `https://brainrush.fun/api/leaderboard?game=${game}&count=${count}`;
+        console.log(url)
         const res = await fetch(url);
         leaderboardData.value = await res.json();
       } catch (e) {
@@ -43,6 +44,9 @@ export const LeaderboardPanel = component$(
 
       loading.value = false;
     });
+
+    console.log(leaderboard.value);
+    
 
     const startX = useSignal(0);
     const currentX = useSignal(0);
