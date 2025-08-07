@@ -23,7 +23,6 @@ interface LeaderboardProps {
 export const LeaderboardPanel = component$(
   ({ leaderboard, useGame }: LeaderboardProps) => {
     const leaderboardData = useSignal<Leaderboard>({ leaderboard: [] });
-    const loading = useSignal(true);
 
     // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(async ({ track }) => {
@@ -42,10 +41,9 @@ export const LeaderboardPanel = component$(
         console.error("Failed to fetch leaderboard:", e);
       }
 
-      loading.value = false;
     });
 
-    console.log(leaderboard.value);
+    console.log(leaderboardData.value);
     
 
     const startX = useSignal(0);
@@ -114,13 +112,9 @@ export const LeaderboardPanel = component$(
           {/* Content */}
           <div class="p-6">
             <h2 class="mb-4 text-xl font-bold">Leaderboard</h2>
-            {loading.value ? (
-              <div>Loading...</div>
-            ) : (
-              (() => {
-                const data = leaderboardData.value; // ✅ Properly tracked here
-                return data.leaderboard.length > 0 ? (
-                  data.leaderboard.map((entry) => (
+            {
+                 leaderboardData.value.leaderboard.length > 0 ? (
+                  leaderboardData.value.leaderboard.map((entry) => (
                     <div key={entry.name} class="border-b p-2">
                       <div class="font-semibold">{entry.name}</div>
                       <div class="text-gray-500">Score: {entry.score}</div>
@@ -128,9 +122,8 @@ export const LeaderboardPanel = component$(
                   ))
                 ) : (
                   <div>No entries found.</div>
-                );
-              })()
-            )}
+                )
+            }
           </div>
         </div>
       </>
