@@ -4,6 +4,7 @@
 /lib-types
 /server
 
+TODO.js
 # Development
 node_modules
 .env
