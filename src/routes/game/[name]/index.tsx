@@ -8,7 +8,7 @@ import {
   useVisibleTask$,
 } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
-import Swal from "sweetalert2";
+import { LeaderboardPanel } from "~/components/leaderboard/leaderboard";
 import { useSession } from "~/routes/plugin@auth";
 
 export const useHtmlContent = routeLoader$(async ({ params }) => {
@@ -34,6 +34,10 @@ export default component$(() => {
   const data = useHtmlContent();
   const leaderboard = useSignal(false);
   const session = useSession();
+  const gamecode = useSignal("")
+
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() =>{ gamecode.value = localStorage.getItem("gamecode") ?? ""})
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(async () => {
@@ -155,13 +159,7 @@ export default component$(() => {
         {/* Leaderboard Button */}
         <button
           class="flex items-center gap-1 rounded-bl-3xl border border-gray-400 px-3 py-2 text-sm font-medium text-gray-600 shadow-md transition hover:bg-blue-50 hover:text-blue-700"
-          onClick$={() =>
-            Swal.fire(
-              "Coming Soon!",
-              "Leaderboard will be added later.",
-              "info",
-            )
-          }
+          onClick$={() => leaderboard.value = !leaderboard.value}
           aria-label="Leaderboard"
         >
           <svg
@@ -182,15 +180,7 @@ export default component$(() => {
         </button>
       </div>
 
-      <div
-        id="leaderboard"
-        class={[
-          "absolute h-full w-100 origin-left overflow-auto shadow-md transition-all",
-          leaderboard.value
-            ? "visible scale-100 opacity-100"
-            : "invisible scale-95 opacity-0",
-        ]}
-      ></div>
+      <LeaderboardPanel leaderboard={leaderboard} game={gamecode.value}/>
 
       <div
         id="gamecontainer"
