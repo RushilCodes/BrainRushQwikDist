@@ -11,7 +11,7 @@ interface Leaderboard {
 
 interface LeaderboardProps {
   leaderboard: Signal<boolean>;
-  game: string;
+  game: Signal<string>;
 }
 
 

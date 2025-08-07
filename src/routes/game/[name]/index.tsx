@@ -180,7 +180,7 @@ export default component$(() => {
         </button>
       </div>
 
-      <LeaderboardPanel leaderboard={leaderboard} game={gamecode.value}/>
+      <LeaderboardPanel leaderboard={leaderboard} game={gamecode}/>
 
       <div
         id="gamecontainer"
