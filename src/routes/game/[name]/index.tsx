@@ -80,7 +80,7 @@ useVisibleTask$(() => {
         if (!scoreRaw) return;
 
         const score = parseInt(scoreRaw);
-        const invert = localStorage.getItem("type") === "true";
+        const invert = localStorage.getItem("invert") === "true";
         const name = session.value?.user?.name ?? "Anonymous";
 
         fetch("/api/leaderboard", {
