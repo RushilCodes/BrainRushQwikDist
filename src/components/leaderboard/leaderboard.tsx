@@ -27,24 +27,13 @@ export const LeaderboardPanel = component$(
     // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(async ({ track }) => {
       const game = track(() => useGame.value);
-      console.log("🎮 gamecode updated to:", game);
 
       const count = 10;
-      if (!game) return;
-
-      try {
         const url = `https://brainrush.fun/api/leaderboard?game=${game}&count=${count}`;
         console.log(url)
         const res = await fetch(url);
-        leaderboardData.value = await res.json();
-      } catch (e) {
-        console.error("Failed to fetch leaderboard:", e);
-      }
-
-    });
-
-    console.log(leaderboardData.value);
-    
+        leaderboardData.value = await res.json()
+    });    
 
     const startX = useSignal(0);
     const currentX = useSignal(0);
