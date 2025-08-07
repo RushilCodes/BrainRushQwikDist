@@ -1,18 +1,16 @@
 import { type RequestHandler } from "@builder.io/qwik-city";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
-import fs from "node:fs/promises";
-import path from "node:path";
 
-const interRegularFontPath = path.resolve("public/fonts/Inter-Regular.ttf"); // Adjust if needed
-const orbitronBoldFontPath = path.resolve("public/fonts/Orbitron-Bold.ttf"); // Adjust if needed
+// const interRegularFontPath = path.resolve("public/fonts/Inter-Regular.ttf"); // Adjust if needed
+// const orbitronBoldFontPath = path.resolve("public/fonts/Orbitron-Bold.ttf"); // Adjust if needed
 
 export const onGet: RequestHandler = async ({ query, send }) => {
   const username = query.get("username") ?? "Player";
   const score = query.get("score") ?? "0";
   const game = query.get("game") ?? "Game";
-  const interRegularFontData = await fs.readFile(interRegularFontPath);
-  const orbitronBoldFontData = await fs.readFile(orbitronBoldFontPath);
+  const interRegularFontData = await fetch("https://brainrush.fun/fonts/Inter-Regular.ttf").then(res => res.arrayBuffer())
+  const orbitronBoldFontData = await fetch("https://brainrush.fun/fonts/Orbitron-Bold.ttf").then(res => res.arrayBuffer())
 
 const svg = await satori(
   {
