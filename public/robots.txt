@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+ 
+# Uncomment the following line and replace <unindexedFolder> with the actual folder name you want to disallow
+# Disallow: /<unindexedFolder>/
+ 
+Sitemap: https://brainrush.fun/dynamic-sitemap.xml
